@@ -1,0 +1,4 @@
+---
+serviceType: LoadBalancer
+namespace: default
+replicaCount: 6

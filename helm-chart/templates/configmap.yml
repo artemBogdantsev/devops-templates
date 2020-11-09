@@ -1,0 +1,11 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: {{ .Chart.Name }}-cgfmap
+  namespace: {{ .Values.namespace }}
+data:
+  MONGO_HOST: '{{ .Values.mongoConfig.host }}'
+  MONGO_DB: '{{ .Values.mongoConfig.db }}'
+  MONGO_USER: '{{ .Values.mongoConfig.user }}'
+  MONGO_SSL: '{{ .Values.mongoConfig.ssl }}'
+  SCHEDULER_ENDPOINT: '{{ .Values.schedulerUrl }}'

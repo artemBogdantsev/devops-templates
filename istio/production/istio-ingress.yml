@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: istio-ingress
+  namespace: istio-system
+  annotations:
+    kubernetes.io/ingress.global-static-ip-name: istio-gateway-static-ip
+    kubernetes.io/ingress.allow-http: "false"
+    networking.gke.io/v1beta1.FrontendConfig: istio-ingress-frontendconfig
+spec:
+  tls:
+    # use an already existing certificate within the same namespace
+    - secretName: services-usercentrics-tls
+      hosts:
+        - 'aggregator.services.usercentrics.eu'
+    - secretName: service-usercentrics-tls # is needed for prod migration
+      hosts:
+        - 'aggregator.service.usercentrics.eu'
+    - secretName: privacy-proxy-usercentrics-tls # is needed for prod migration
+      hosts:
+        - 'privacy-proxy-server.usercentrics.eu'
+  backend:
+    serviceName: istio-ingressgateway
+    servicePort: 80

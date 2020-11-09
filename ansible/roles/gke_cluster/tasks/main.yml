@@ -1,0 +1,29 @@
+---
+- name: create a cluster
+  gcp_container_cluster:
+    name: usercentrics-cluster
+    initial_node_count: 1
+    node_config:
+      machine_type: "{{ gcp_machine_type }}"
+      disk_size_gb: 500
+    location: "{{ gcp_zone }}"
+    project: "{{ gcp_project }}"
+    auth_kind: "{{ gcp_cred_kind }}"
+    service_account_file: "{{ gcp_cred_file }}"
+    state: present
+  register: k8s_cluster
+
+- name: set new instance template as globaly available variable
+  set_fact:
+    k8s_cluster: "{{ k8s_cluster }}"
+
+- name: create a node pool
+  gcp_container_node_pool:
+    name: my-pool
+    initial_node_count: 1
+    cluster: "{{ k8s_cluster }}"
+    location: "{{ gcp_zone }}"
+    project: "{{ gcp_project }}"
+    auth_kind: "{{ gcp_cred_kind }}"
+    service_account_file: "{{ gcp_cred_file }}"
+    state: present

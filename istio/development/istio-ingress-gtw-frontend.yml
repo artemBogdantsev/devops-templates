@@ -1,0 +1,7 @@
+apiVersion: networking.gke.io/v1beta1
+kind: FrontendConfig
+metadata:
+  name: istio-ingress-frontendconfig
+  namespace: istio-system
+spec:
+  sslPolicy: gke-ingress-ssl-policy

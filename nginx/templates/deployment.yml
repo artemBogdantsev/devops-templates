@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Chart.Name }}-app
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: {{ .Chart.Name }}-app
+spec:
+  selector:
+    matchLabels:
+      app: {{ .Chart.Name }}-app
+  replicas: {{ .Values.replicaCount }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Chart.Name }}-app
+    spec:
+      containers:
+      - name: {{ .Chart.Name }}
+        image: nginx:alpine
+        ports:
+          - containerPort: 443
+        volumeMounts:
+          - name: nginx-proxy-config
+            mountPath: /etc/nginx/nginx.conf
+            subPath: nginx.conf
+      volumes:
+        - name: nginx-proxy-config
+          configMap:
+            name: {{ .Chart.Name }}-cgfmap

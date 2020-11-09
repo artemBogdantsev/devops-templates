@@ -1,0 +1,46 @@
+apiVersion: install.istio.io/v1alpha1
+kind: IstioOperator
+metadata:
+  labels:
+    addonmanager.kubernetes.io/mode: EnsureExists
+    k8s-app: istio
+  name: istio-1-6-4-gke-0
+  namespace: istio-system
+spec:
+  addonComponents:
+    grafana:
+      enabled: true
+    kiali:
+      enabled: true
+    prometheus:
+      enabled: true
+    tracing:
+      enabled: true
+  components:
+    ingressGateways:
+    - enabled: true
+      name: istio-ingressgateway
+      k8s:
+        serviceAnnotations:
+          cloud.google.com/neg: '{"ingress": true}'
+  revision: istio-164
+  values:
+    global:
+      defaultPodDisruptionBudget:
+        enabled: false
+      disablePolicyChecks: false
+    mixer:
+      adapters:
+        prometheus:
+          enabled: false
+        useAdapterCRDs: true
+    prometheus:
+      enabled: false
+    telemetry:
+      enabled: true
+      v1:
+        enabled: false
+      v2:
+        enabled: true
+        stackdriver:
+          enabled: true

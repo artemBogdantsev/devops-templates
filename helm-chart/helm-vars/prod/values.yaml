@@ -1,0 +1,21 @@
+---
+namespace: production
+containerPort: 8080
+servicePort: 8080
+
+# You must specify requests for CPU to autoscale based on CPU utilization
+resources:
+  requests:
+    cpu: "4000m"
+    memory: "10Gi"
+
+replicaCount: 3
+cpuUsage: 80
+ramUsage: 20Gi
+serviceType: ClusterIP # GCP reccomneds to use default type with NEG
+domainName: APP_DOMAIN_NAME_ENV2
+mongoConfig:
+  host: "mongodb://localhost:27017/"
+  db: default_default
+  user: prisma
+  ssl: 1

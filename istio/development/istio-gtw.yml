@@ -1,0 +1,97 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: istio-gateway
+  namespace: istio-system
+spec:
+  selector:
+    istio: ingressgateway # use Istio default gateway implementation
+  servers:
+  - port:
+      number: 80
+      name: http-redirect
+      protocol: HTTP
+    hosts:
+    - "*.tools.usercentrics-sandbox.eu"
+    - "crawler.services.usercentrics-sandbox.eu"
+    - "crawler.service.usercentrics-sandbox.eu"
+    tls:
+      httpsRedirect: true # sends 301 redirect for http requests
+  - port:
+      number: 443
+      name: https-tools
+      protocol: HTTPS
+    hosts:
+    - "*.tools.usercentrics-sandbox.eu"
+    tls:
+      mode: SIMPLE # enables HTTPS on this port
+      credentialName: tools-usercentrics-sandbox-tls
+      minProtocolVersion: TLSV1_2
+      cipherSuites: [
+        TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,
+        TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384,
+        TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256,
+        TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,
+        TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,
+        TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256
+      ]
+  - port:
+      number: 443
+      name: https-services
+      protocol: HTTPS
+    hosts:
+    - "*.services.usercentrics-sandbox.eu"
+    tls:
+      mode: SIMPLE # enables HTTPS on this port
+      credentialName: services-usercentrics-sandbox-tls
+      minProtocolVersion: TLSV1_2
+      cipherSuites: [
+        TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,
+        TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384,
+        TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256,
+        TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,
+        TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,
+        TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256
+      ]
+  - port:
+      number: 443
+      name: https-privacy-proxy
+      protocol: HTTPS
+    hosts:
+    - "privacy-proxy-server.usercentrics-sandbox.eu"
+    tls:
+      mode: SIMPLE # enables HTTPS on this port
+      credentialName: privacy-proxy-usercentrics-sandbox-tls
+      minProtocolVersion: TLSV1_2
+      cipherSuites: [
+        TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,
+        TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384,
+        TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256,
+        TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,
+        TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,
+        TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256
+      ]
+  - port:
+      number: 443
+      name: https-service
+      protocol: HTTPS
+    hosts:
+    - "*.service.usercentrics-sandbox.eu"
+    tls:
+      mode: SIMPLE # enables HTTPS on this port
+      credentialName: service-usercentrics-sandbox-tls
+      minProtocolVersion: TLSV1_2
+      cipherSuites: [
+        TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,
+        TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384,
+        TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256,
+        TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,
+        TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,
+        TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256
+      ]
+  - port: # for use with GKE Ingress and GoogleHC
+      number: 80
+      name: http-all
+      protocol: HTTP
+    hosts:
+    - '*'

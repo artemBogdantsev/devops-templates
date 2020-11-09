@@ -1,0 +1,40 @@
+apiVersion: skaffold/v2beta5
+kind: Config
+build:
+  artifacts:
+  - image: IMAGE_NAME
+
+profiles:
+  - name: ENV1
+    build:
+      googleCloudBuild:
+        projectId: ENV1_PROJECT_ID
+    deploy:
+      statusCheckDeadlineSeconds: 300 # for GKE it is not enough to have 2 minutes to deploy
+      helm:
+        releases:
+          - name: IMAGE_NAME
+            chartPath: HELM_CHART_PATH
+            useHelmSecrets: true
+            artifactOverrides:
+              image: IMAGE_NAME
+            valuesFiles:
+            - HELM_CHART_PATH/helm-vars/ENV1/values.yaml
+            - HELM_CHART_PATH/helm-vars/ENV1/secrets.yaml
+
+  - name: ENV2
+    build:
+      googleCloudBuild:
+        projectId: ENV2_PROJECT_ID
+    deploy:
+      statusCheckDeadlineSeconds: 300 # for GKE it is not enough to have 2 minutes to deploy
+      helm:
+        releases:
+          - name: IMAGE_NAME
+            chartPath: HELM_CHART_PATH
+            useHelmSecrets: true
+            artifactOverrides:
+              image: IMAGE_NAME
+            valuesFiles:
+              - HELM_CHART_PATH/helm-vars/ENV2/values.yaml
+              - HELM_CHART_PATH/helm-vars/ENV2/secrets.yaml

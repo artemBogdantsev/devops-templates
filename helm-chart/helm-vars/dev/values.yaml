@@ -1,0 +1,21 @@
+---
+namespace: development
+containerPort: 8080
+servicePort: 8080
+
+# You must specify requests for CPU to autoscale based on CPU utilization
+resources:
+  requests:
+    cpu: "300m"
+    memory: "512Mi"
+
+replicaCount: 3
+cpuUsage: 80
+ramUsage: 1Gi
+serviceType: ClusterIP # GCP reccomneds to use default type with NEG
+domainName: APP_DOMAIN_NAME_ENV1
+mongoConfig:
+  host: "mongodb+srv://localhost"
+  db: MONGO_DB
+  user: MONGO_USER
+  ssl: 1
