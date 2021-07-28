@@ -1,0 +1,26 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: services-usercentrics-staging-cert
+  namespace: istio-system # alongside the ingress object
+spec:
+  secretName: services-usercentrics-staging-tls
+  dnsNames:
+  - '*.services.usercentrics-staging.eu'
+  issuerRef:
+    name: letsencrypt-issuer-stage
+    kind: ClusterIssuer
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: service-usercentrics-staging-cert
+  namespace: istio-system # alongside the ingress object
+spec:
+  secretName: service-usercentrics-staging-tls
+  dnsNames:
+  - '*.service.usercentrics-staging.eu'
+  issuerRef:
+    name: letsencrypt-issuer-stage
+    kind: ClusterIssuer

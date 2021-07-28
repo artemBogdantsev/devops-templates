@@ -1,0 +1,17 @@
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: sonarqube-vs
+  namespace: toolchain
+spec:
+  hosts:
+  - sonarserver.tools.usercentrics.eu
+  gateways:
+  - istio-system/istio-gateway
+  http:
+  - route:
+    - destination:
+        host: "sonarqube-1-sonarqube-svc.toolchain.svc.cluster.local"
+        port:
+          number: 9000
