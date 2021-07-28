@@ -41,7 +41,7 @@ $ helm install \
   --set installCRDs=true
 ```
 
-If there is a problem with havin split-horizon DNS, please use self-check DNS via
+*Note: (WORKING SOLUTION)* If there is a problem with havin split-horizon DNS, please use self-check DNS via
 
 ```
 # Helm v3+

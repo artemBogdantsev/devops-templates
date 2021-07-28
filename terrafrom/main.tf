@@ -45,6 +45,13 @@ module "vpc_network" {
 
   cidr_block           = var.vpc_cidr_block
   secondary_cidr_block = var.vpc_secondary_cidr_block
+
+  # more granular IP spacing
+  cidr_subnetwork_width_delta           = var.vpc_cidr_subnetwork_width_delta
+  cidr_subnetwork_spacing               = var.vpc_cidr_subnetwork_spacing
+  secondary_cidr_subnetwork_width_delta = var.vpc_secondary_cidr_subnetwork_width_delta
+  secondary_cidr_subnetwork_spacing     = var.vpc_secondary_cidr_subnetwork_spacing
+
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
@@ -60,7 +67,10 @@ module "gke_cluster" {
   zones       = var.zones
   description = var.description
   istio       = var.istio
+  cloudrun       = var.cloudrun
+  default_max_pods_per_node = var.default_max_pods_per_node
   kubernetes_version = var.kubernetes_version
+
 
   # Node Auto Provisioning
   cluster_autoscaling = var.cluster_autoscaling
@@ -71,8 +81,8 @@ module "gke_cluster" {
   network = module.vpc_network.network
 
   subnetwork                   = module.vpc_network.public_subnetwork
-  cluster_secondary_range_name = module.vpc_network.public_subnetwork_secondary_range_name
-  # services_secondary_range_name = cluster_secondary_range_name
+  cluster_secondary_range_name = module.vpc_network.public_subnetwork_pods_secondary_range_name
+  services_secondary_range_name = module.vpc_network.public_subnetwork_services_secondary_range_name
 
   enable_vertical_pod_autoscaling = var.enable_vertical_pod_autoscaling
 
@@ -91,5 +101,6 @@ module "node_pools" {
   node_pools        = var.node_pools
   node_pools_labels = var.node_pools_labels
   node_pools_taints = var.node_pools_taints
+  max_pods_per_node = module.gke_cluster.max_pods_per_node
 }
 

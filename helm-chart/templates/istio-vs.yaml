@@ -14,3 +14,7 @@ spec:
         host: "{{ .Chart.Name }}-svc.{{ .Values.namespace }}.svc.cluster.local"
         port:
           number: {{ .Values.servicePort }}
+      headers:
+        response:
+          set:
+            Strict-Transport-Security: max-age=604800; includeSubDomains

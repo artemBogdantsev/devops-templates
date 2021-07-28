@@ -39,4 +39,19 @@ locals {
     ),
     var.node_pools_taints
   )
+
+  // oauth_scopes = [
+  //      "https://www.googleapis.com/auth/cloud-platform",
+  //      "https://www.googleapis.com/auth/logging.write",
+  //      "https://www.googleapis.com/auth/monitoring",
+  // ]
+  node_pools_oauth_scopes = merge(
+    { all = ["https://www.googleapis.com/auth/cloud-platform"] },
+    { default-node-pool = [] },
+    zipmap(
+      [for node_pool in var.node_pools : node_pool["name"]],
+      [for node_pool in var.node_pools : []]
+    ),
+    var.node_pools_oauth_scopes
+  )
 }

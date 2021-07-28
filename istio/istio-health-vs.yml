@@ -24,4 +24,4 @@ spec:
     - destination:
         host: istio-ingressgateway.istio-system.svc.cluster.local
         port:
-          number: 15021 # watch this part!
+          number: 15021 # watch this part 15021

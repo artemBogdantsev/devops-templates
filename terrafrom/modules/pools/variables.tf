@@ -13,6 +13,11 @@ variable "location" {
   type        = string
 }
 
+variable "max_pods_per_node" {
+  description = "Maximum Pods per Node parameter"
+  type = string
+}
+
 variable "node_pools" {
   type        = list(map(string))
   description = "List of maps containing node pools"
@@ -42,6 +47,17 @@ variable "node_pools_taints" {
   # Default is being set in variables_defaults.tf
   default = {
     all               = []
+    default-node-pool = []
+  }
+}
+
+variable "node_pools_oauth_scopes" {
+  type        = map(list(string))
+  description = "Map of lists containing node oauth scopes by node-pool name"
+
+  # Default is being set in variables_defaults.tf
+  default = {
+    all               = ["https://www.googleapis.com/auth/cloud-platform"]
     default-node-pool = []
   }
 }

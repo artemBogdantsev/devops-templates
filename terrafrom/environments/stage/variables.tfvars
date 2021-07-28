@@ -1,54 +1,33 @@
-project           = "usercentrics-playground"
-cluster_name      = "usercentrics-staging"
-region            = "europe-west1"
-regional          = false
-zones             = ["europe-west1-b", "europe-west1-c", "europe-west1-d"]
-account_file_path = "~/.gcp/gcp-sa-stage.json"
+project            = "usercentrics-staging"
+cluster_name       = "usercentrics-staging"
+region             = "europe-west1"
+regional           = true
+account_file_path  = "~/.gcp/gcp-sa-stage.json"
+kubernetes_version = "1.18.16-gke.302"
+istio              = true # make sure you enable it with init install
+enable_vertical_pod_autoscaling = true
+
+vpc_cidr_block           = "10.64.0.0/10"
+vpc_secondary_cidr_block = "10.128.0.0/10"
 
 # Optional
-description = "A K8s cluster for Development/Staging workflows"
+description = "A K8s cluster for Staging workflows. V2"
+default_max_pods_per_node = "32"
+
+cluster_autoscaling = {
+  enabled             = true
+  autoscaling_profile = "BALANCED"
+  max_cpu_cores       = 256
+  min_cpu_cores       = 12
+  max_memory_gb       = 1024
+  min_memory_gb       = 24
+}
 
 node_pools = [
   {
-    name                     = "default" # to keep system pods
-    node_count               = 1
-    autoscaling              = false
-    node_config_machine_type = "e2-small"
-  },
-  {
-    name                       = "standard"
-    autoscaling_min_node_count = 0
-    autoscaling_max_node_count = 3
-    node_config_machine_type   = "e2-medium"
-  },
-  {
-    name                       = "compute"
-    autoscaling_min_node_count = 0
-    autoscaling_max_node_count = 6
-    node_config_machine_type   = "c2-standard-4"
+    name                       = "default"
+    node_count                 = 2
+    autoscaling                = false
+    node_config_machine_type   = "e2-medium" # 2vCPU/4GB
   },
 ]
-
-node_pools_labels = {
-  all = {
-    nodetype = "default"
-  }
-  compute = {
-    nodetype = "compute"
-  }
-}
-
-node_pools_taints = {
-  all = [
-
-  ]
-  compute = [
-    {
-      key    = "reserved-pool"
-      value  = true
-      effect = "NO_SCHEDULE"
-    },
-  ]
-}
-
-secrets_encryption_kms_key = "projects/usercentrics-playground/locations/europe/keyRings/usercentrics-master-key/cryptoKeys/usercentrics-master-key"

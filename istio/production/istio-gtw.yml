@@ -12,29 +12,11 @@ spec:
       name: http-redirect
       protocol: HTTP
     hosts:
-    - "*.tools.usercentrics.eu"
     - "crawler.services.usercentrics.eu"
     - "crawler.service.usercentrics.eu"
-    tls:
-      httpsRedirect: true # sends 301 redirect for http requests
-  - port:
-      number: 443
-      name: https-tools
-      protocol: HTTPS
-    hosts:
     - "*.tools.usercentrics.eu"
     tls:
-      mode: SIMPLE # enables HTTPS on this port
-      credentialName: tools-usercentrics-tls
-      minProtocolVersion: TLSV1_2
-      cipherSuites: [
-        TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,
-        TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384,
-        TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256,
-        TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,
-        TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,
-        TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256
-      ]
+      httpsRedirect: true # sends 301 redirect for http requests
   - port:
       number: 443
       name: https-services
@@ -55,13 +37,13 @@ spec:
       ]
   - port:
       number: 443
-      name: https-privacy-proxy
+      name: https-service
       protocol: HTTPS
     hosts:
-    - "privacy-proxy-server.usercentrics.eu"
+    - "*.service.usercentrics.eu"
     tls:
       mode: SIMPLE # enables HTTPS on this port
-      credentialName: privacy-proxy-usercentrics-tls
+      credentialName: service-usercentrics-tls
       minProtocolVersion: TLSV1_2
       cipherSuites: [
         TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,
@@ -73,13 +55,13 @@ spec:
       ]
   - port:
       number: 443
-      name: https-service
+      name: https-tools
       protocol: HTTPS
     hosts:
-    - "*.service.usercentrics.eu"
+    - "*.tools.usercentrics.eu"
     tls:
       mode: SIMPLE # enables HTTPS on this port
-      credentialName: service-usercentrics-tls
+      credentialName: tools-usercentrics-tls
       minProtocolVersion: TLSV1_2
       cipherSuites: [
         TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,

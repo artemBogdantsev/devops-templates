@@ -15,6 +15,8 @@ resource "google_container_node_pool" "node_pool" {
   for_each = local.node_pools
   location = var.location
 
+  max_pods_per_node = var.max_pods_per_node
+
   # The name of the node pool. Instance groups created will have the cluster
   # name prefixed automatically.
   name = format("%s-pool", each.key)
@@ -99,11 +101,10 @@ resource "google_container_node_pool" "node_pool" {
     # aliases. The cloud-platform access scope authorizes access to all Cloud
     # Platform services, and then limit the access by granting IAM roles
     # https://cloud.google.com/compute/docs/access/service-accounts#service_account_permissions
-    oauth_scopes = [
-      "https://www.googleapis.com/auth/cloud-platform",
-      "https://www.googleapis.com/auth/logging.write",
-      "https://www.googleapis.com/auth/monitoring",
-    ]
+    oauth_scopes = concat(
+      local.node_pools_oauth_scopes["all"],
+      local.node_pools_oauth_scopes[each.value["name"]],
+    )
 
     # The metadata key/value pairs assigned to instances in the cluster.
     metadata = {

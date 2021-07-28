@@ -21,6 +21,8 @@ spec:
     - enabled: true
       name: istio-ingressgateway
       k8s:
+        hpaSpec:
+          minReplicas: 3
         serviceAnnotations:
           cloud.google.com/neg: '{"ingress": true}'
   revision: istio-164
@@ -29,6 +31,21 @@ spec:
       defaultPodDisruptionBudget:
         enabled: false
       disablePolicyChecks: false
+    kiali:
+      dashboard:
+        auth:
+          strategy: token
+    grafana:
+      accessMode: ReadWriteOnce
+      persist: true
+      storageClassName: standard
+      env:
+        GF_AUTH_ANONYMOUS_ENABLED: false
+        GF_AUTH_GOOGLE_CLIENT_ID: my_client
+        GF_AUTH_GOOGLE_CLIENT_SECRET: my_secret
+        GF_AUTH_GOOGLE_ENABLED: true
+        GF_AUTH_GOOGLE_ALLOWED_DOMAINS: usercentrics.com
+        GF_SERVER_ROOT_URL: https://grafana.tools.usercentrics-sandbox.eu/
     mixer:
       adapters:
         prometheus:

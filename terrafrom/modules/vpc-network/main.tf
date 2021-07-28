@@ -37,14 +37,23 @@ resource "google_compute_subnetwork" "vpc_subnetwork_public" {
   network = google_compute_network.vpc.self_link
 
   private_ip_google_access = true
-  ip_cidr_range            = cidrsubnet(var.cidr_block, var.cidr_subnetwork_width_delta, 0)
+  ip_cidr_range            = cidrsubnet(var.cidr_block, var.cidr_subnetwork_width_delta, var.cidr_subnetwork_spacing)
+
+  secondary_ip_range {
+    range_name = "public-pods"
+    ip_cidr_range = cidrsubnet(
+      var.secondary_cidr_block,
+      var.secondary_cidr_subnetwork_width_delta,
+      (0 + var.secondary_cidr_subnetwork_spacing)
+    )
+  }
 
   secondary_ip_range {
     range_name = "public-services"
     ip_cidr_range = cidrsubnet(
       var.secondary_cidr_block,
       var.secondary_cidr_subnetwork_width_delta,
-      0
+      (1 + var.secondary_cidr_subnetwork_spacing)
     )
   }
 
@@ -92,7 +101,7 @@ resource "google_compute_subnetwork" "vpc_subnetwork_private" {
   ip_cidr_range = cidrsubnet(
     var.cidr_block,
     var.cidr_subnetwork_width_delta,
-    1 * (1 + var.cidr_subnetwork_spacing)
+    1 * (3 + var.cidr_subnetwork_spacing)
   )
 
   secondary_ip_range {
@@ -100,7 +109,7 @@ resource "google_compute_subnetwork" "vpc_subnetwork_private" {
     ip_cidr_range = cidrsubnet(
       var.secondary_cidr_block,
       var.secondary_cidr_subnetwork_width_delta,
-      1 * (1 + var.secondary_cidr_subnetwork_spacing)
+      1 * (3 + var.secondary_cidr_subnetwork_spacing)
     )
   }
 

@@ -51,6 +51,8 @@ locals {
   cluster_workload_identity_config = ! local.workload_identity_enabled ? [] : var.identity_namespace == "enabled" ? [{
     identity_namespace = "${var.project}.svc.id.goog" }] : [{ identity_namespace = var.identity_namespace
   }]
+
+  cluster_cloudrun_config = var.cloudrun ? [{ disabled = false }] : [{ disabled = true }]
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
@@ -94,12 +96,13 @@ resource "google_container_cluster" "cluster" {
   # with no node pools.
   remove_default_node_pool = true
   initial_node_count = 1
+  default_max_pods_per_node = var.default_max_pods_per_node
 
   # ip_allocation_policy.use_ip_aliases defaults to true, since we define the block `ip_allocation_policy`
   ip_allocation_policy {
     // Choose the range, but let GCP pick the IPs within the range
     cluster_secondary_range_name  = var.cluster_secondary_range_name
-    services_secondary_range_name = var.services_secondary_range_name != null ? var.services_secondary_range_name : var.cluster_secondary_range_name
+    services_secondary_range_name = var.services_secondary_range_name
   }
 
   # We can optionally control access to the cluster
@@ -127,6 +130,14 @@ resource "google_container_cluster" "cluster" {
       disabled = ! var.istio
       auth     = var.istio_auth
     }
+
+    dynamic "cloudrun_config" {
+      for_each = local.cluster_cloudrun_config
+
+      content {
+        disabled = cloudrun_config.value.disabled
+      }
+    }
   }
 
   network_policy {
@@ -138,6 +149,13 @@ resource "google_container_cluster" "cluster" {
 
   cluster_autoscaling {
     enabled             = var.cluster_autoscaling.enabled
+    dynamic "auto_provisioning_defaults" {
+      for_each = var.cluster_autoscaling.enabled ? [1] : []
+
+      content {
+        oauth_scopes = var.node_pools_oauth_scopes["all"]
+      }
+    }
     autoscaling_profile = var.cluster_autoscaling.autoscaling_profile != null ? var.cluster_autoscaling.autoscaling_profile : "BALANCED"
     dynamic "resource_limits" {
       for_each = local.autoscaling_resource_limits

@@ -22,6 +22,11 @@ output "endpoint" {
   value       = google_container_cluster.cluster.endpoint
 }
 
+output "max_pods_per_node" {
+  description = "Maximum Pods per node inherited from cluster setting. Default is 110"
+  value       = google_container_cluster.cluster.default_max_pods_per_node
+}
+
 # The following outputs allow authentication and connectivity to the GKE Cluster.
 output "client_certificate" {
   description = "Public certificate used by clients to authenticate to the cluster endpoint"

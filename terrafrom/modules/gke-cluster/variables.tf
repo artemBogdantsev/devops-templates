@@ -242,6 +242,11 @@ variable "istio" {
   default     = false
 }
 
+variable "cloudrun" {
+  description = "(Beta) Enable CloudRun addon"
+  default     = false
+}
+
 variable "istio_auth" {
   type        = string
   description = "(Beta) The authentication type between services in Istio."
@@ -268,8 +273,25 @@ variable "cluster_autoscaling" {
   description = "Cluster autoscaling configuration. See [more details](https://cloud.google.com/kubernetes-engine/docs/reference/rest/v1beta1/projects.locations.clusters#clusterautoscaling)"
 }
 
+variable "node_pools_oauth_scopes" {
+  type        = map(list(string))
+  description = "Map of lists containing node oauth scopes by node-pool name"
+
+  # Default is being set in variables_defaults.tf
+  default = {
+    all               = ["https://www.googleapis.com/auth/cloud-platform"]
+    default-node-pool = []
+  }
+}
+
 variable "identity_namespace" {
   description = "Workload Identity namespace. (Default value of `enabled` automatically sets project based namespace `[project_id].svc.id.goog`)"
   type        = string
   default     = "enabled"
+}
+
+variable "default_max_pods_per_node" {
+  description = "Maximum Pods per Node parameter"
+  type = string
+  default = 110
 }

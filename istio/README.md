@@ -62,11 +62,57 @@ In order to serve a production workflow please do the following:
 It’s advised you read the [Cert Manager](../cert-manager/README.md) page first for a more general understanding of how 
 cert-manager is installed and configured.
 
+#### Options for providing SSL certificates
+There are three ways to provide SSL certificates to an HTTP(S) load balancer:
+
+*Google-managed certificates*
+
+Google-managed SSL certificates are provisioned, deployed, renewed, and managed for your domains. Managed certificates 
+do not support wildcard domains.
+
+*Self-managed certificates shared with Google Cloud*
+
+You can provision your own SSL certificate and create a certificate resource in your Google Cloud project. You can then 
+list the certificate resource in an annotation on an Ingress to create an HTTP(S) load balancer that uses the certificate. 
+Refer to [instructions for pre-shared certificates](https://cloud.google.com/kubernetes-engine/docs/how-to/ingress-multi-ssl#using_pre-shared_certificates) for more information.
+
+```
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: istio-ingress-uc-eu
+  namespace: istio-system
+  annotations:
+    ingress.gcp.kubernetes.io/pre-shared-cert: usercentrics-eu
+```
+
+*Self-managed certificates as Secret resources*
+
+You can provision your own SSL certificate and create a Secret to hold it. You can then refer to the Secret in an Ingress 
+specification to create an HTTP(S) load balancer that uses the certificate. Refer to the instructions for using certificates 
+in Secrets for more information.
+
+#### Upload certificates manually directly to GKE
+Kubernetes store the certificate in the secret. You can simply export the secret and import it on to new kubernetes cluster.
+Here is one example to export the secret locally:
+
+`kubectl get secret my-secret-name(secret name) --export -o yaml > my-secret-name.yaml`
+
+my-secret-name.yaml file will be created
+
+now on the new cluster, you can simply import the certificate using generated yaml file
+
+`kubectl apply -f my-secret-name.yaml -n istio-system`
+
+(if want to set in a specific namespace)
+
+After importing the certificate you can simply use them in *ingress*.
+
 ## Updating to Istio 1.6 with Istio Operator Installed
 **NOTE:** It is important that you use the latest GKE version above 1.17 where Istio 1.6 Operator installed already.
 
 1. Turn down the old control plane of Istio (https://cloud.google.com/istio/docs/istio-on-gke/upgrade-with-operator#turn_down_the_old_control_plane)
-2. Disable Istio Add-on on the cluster (this will keep Installed CP)
+~~2. Disable Istio Add-on on the cluster (this will keep Installed CP)~~
 3. Install istioctl (always match version to the installed Istio version))
 4. Make a copy of IstioOperator CR
 
@@ -118,9 +164,20 @@ Creating an Istio virtual service allows the cluster to respond to load-balancin
  the requests to the status endpoint on the Istio Ingress Gateway. Without this HTTP(S) LoadBalancer would never be healthy, 
  and thus no traffic forwarded to the backend — Istio Ingress Gateway as our NEGs:
  
-```kubectl apply -f istio-health-vs.yml```
+```kubectl apply -f <ENV>/istio-health-vs.yml```
 
 **NOTE:** before applying please check if the Istio Ingressgateway service has got 15021 starting from Istio v1.6.x port for status check.
+
+### Istio Ingress SSL Policy Configuration
+Istio Ingress could be configured with certain SSL policy. Because Istio Ingress object will init creation of the HTTP(S) LoadBalancer, it
+is possible to configure a frontend for it with exact SSL policy. For this we have, first, create or update a relevant SSL policy in GCP
+
+```gcloud compute ssl-policies create <POLICY NAME> --profile RESTRICTED --min-tls-version 1.2```
+
+and then add a frontend configuration with specified SSL policy name as defined above
+
+```kubectl apply -f <ENV>/istio-ingress-gtw-frontend.yml```
+
 
 ### Creating Istio Ingress
 Last step is to create an Istio Ingress Object to forward traffic (with SSL termination) from GCE LoadBalancer to Istio 
@@ -197,3 +254,17 @@ gRPC config stream closed: 13
 ```
 
 [TLS connection failures after Istio 1.3 upgrade](https://github.com/istio/istio/issues/17139)
+
+### Kiali Auth strategy is reset to login by Istio CR reconcile
+
+To make this setting be consistent and have token as default, please change Istio Operator by adding next settings in valuse:
+
+```
+  ...
+  values:
+    kiali:
+      dashboard:
+        auth:
+          strategy: token
+  ... 
+```

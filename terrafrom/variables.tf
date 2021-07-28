@@ -99,6 +99,30 @@ variable "vpc_secondary_cidr_block" {
 	default     = "10.4.0.0/16"
 }
 
+variable "vpc_cidr_subnetwork_width_delta" {
+	description = "The difference between your network and subnetwork netmask; an /16 network and a /20 subnetwork would be 4"
+	type        = number
+	default     = 4
+}
+
+variable "vpc_cidr_subnetwork_spacing" {
+	description = "How many subnetwork-mask sized spaces to leave between each subnetwork type"
+	type        = number
+	default     = 0
+}
+
+variable "vpc_secondary_cidr_subnetwork_width_delta" {
+	description = "The difference between your network and subnetwork's secondary range netmask; an /16 network and a /20 subnetwork would be 4"
+	type        = number
+	default     = 4
+}
+
+variable "vpc_secondary_cidr_subnetwork_spacing" {
+	description = "How many subnetwork-mask sized spaces to leave between each subnetwork type's secondary ranges"
+	type        = number
+	default     = 0
+}
+
 variable "enable_vertical_pod_autoscaling" {
 	description = "Enable vertical pod autoscaling"
 	type        = string
@@ -113,7 +137,12 @@ variable "secrets_encryption_kms_key" {
 
 variable "istio" {
 	description = "Boolean to enable / disable Istio"
-	default     = true
+	default     = false
+}
+
+variable "cloudrun" {
+	description = "(Beta) Enable CloudRun addon"
+	default     = false
 }
 
 variable "cluster_autoscaling" {
@@ -134,4 +163,10 @@ variable "cluster_autoscaling" {
 		min_memory_gb       = 0
 	}
 	description = "Cluster autoscaling configuration. See [more details](https://cloud.google.com/kubernetes-engine/docs/reference/rest/v1beta1/projects.locations.clusters#clusterautoscaling)"
+}
+
+variable "default_max_pods_per_node" {
+	description = "Maximum Pods per Node parameter"
+	type = string
+	default = "110"
 }

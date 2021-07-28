@@ -3,6 +3,20 @@ An alternative to Ansible to automate provisioning and maintenance of GKE Cluste
 ## Install
 [Download](https://www.terraform.io/downloads.html) and install Terraform on your local environment.
 ## Service Accounts
+
+#### Creating a configuration
+
+```gcloud config configurations create myconf```
+
+This will guide you through the configuration of a new configuration. It allows you to set one config per account, project, cluster…
+
+#### Set the Project Configuration
+```gcloud config set project PROJECT_ID```
+
+#### Activating a configuration
+```gcloud config configurations activate myconf```
+
+
 It is recommended to use a dedicated service account to work with GCP:
 
 + Manually: 
@@ -14,10 +28,10 @@ Name the service account `terraform and assign it the **Project Editor** role. C
 key that can authenticate as a project editor to your project. *Keep this JSON file safe!* Anyone with access to 
 this file can create billable resources in your project.
 
-+ via CLI:
++ via CLI (**ake sure to set the right GCP project**):
     
 ```bash
-MY_ENV=[stage|prod]
+MY_ENV=[dev|stage|prod]
 SERVICE_ACCOUNT_NAME=terraform-gcp-sa
 SERVICE_ACCOUNT_DEST=~/.gcp/gcp-sa-${MY_ENV}.json
 
@@ -180,7 +194,10 @@ cluster_endpoint = <sensitive>
 ```
         
 + 
-    `terrafrom destroy -var-file=environments/${MY_ENV}/variables.tfvars`
+    ```
+    terraform init -backend-config=environments/${MY_ENV}/backend.config .
+    terraform destroy -var-file=environments/${MY_ENV}/variables.tfvars
+    ```
 
 ## Workload Identity 
 After applying workload identity on a cluster you have to take care about following SA(service account) bindings:
@@ -209,3 +226,10 @@ kubectl annotate serviceaccount --namespace=NAMESPACE default \
 ### do rollout restart of existing 
 kubectl rollout restart deployment APP_NAME -n NAMESPACE
 ```
+
+## Troubleshooting
+
+### ~~No access to docker registry~~
+~~There is a problem with configuring NAP without providing `auto_provisioning_defaults` option.
+By default, the auto provisioned node will get the default scopes. Use the "https://www.googleapis.com/auth/cloud-platform" scope to grant access to all APIs.
+Otherwise, make sure you manually change it via UI at *Access scopes->Allow full access to all Cloud APIs*~~  

@@ -1,4 +1,15 @@
-# Monitoring Kubernetes Clusters with Grafana
+# Installing Prometheus Adapter
+
+`helm repo add prometheus-community https://prometheus-community.github.io/helm-charts`
+
+edit `prometheus-adapter-values.yml` in devops-template/monitoring repo
+
+`helm upgrade -n monitoring prometheus-adapter prometheus-community/prometheus-adapter -f prometheus-adapter-values.yml --install`
+
+
+
+##########################
+# LEGACY: Monitoring Kubernetes Clusters with Grafana
 This part will describe in detail how setup and run the monitoring systems.
 
 ## Prometheus and Grafana

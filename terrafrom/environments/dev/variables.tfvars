@@ -4,9 +4,12 @@ region            = "europe-west1"
 regional          = false
 zones             = ["europe-west1-b", "europe-west1-c", "europe-west1-d"]
 account_file_path = "~/.gcp/gcp-sa-stage.json" # use the same SA for TF
+kubernetes_version = "1.17.15-gke.800"
+istio              = true # make sure you enable it with init install
+enable_vertical_pod_autoscaling = true
 
 # Optional
-description = "A K8s cluster for Development workflows. PLEASE DELETE IF NOT USING!!!"
+description = "A K8s cluster for Development workflows"
 
 cluster_autoscaling = {
   enabled             = true

@@ -13,6 +13,7 @@ spec:
     - secretName: services-usercentrics-sandbox-tls
       hosts:
         - 'aggregator.services.usercentrics-sandbox.eu'
+        - 'istiotest.services.usercentrics-sandbox.eu'
     - secretName: service-usercentrics-sandbox-tls # is needed for prod migration
       hosts:
         - 'aggregator.service.usercentrics-sandbox.eu'
