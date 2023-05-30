@@ -6,7 +6,7 @@ metadata:
   namespace: istio-system
 spec:
   hosts:
-  - kiali.tools.usercentrics-sandbox.eu
+  - kiali.tools.<YOUR_DOMAIN>-sandbox.eu
   gateways:
   - istio-gateway
   http:
@@ -23,7 +23,7 @@ metadata:
   namespace: istio-system
 spec:
   hosts:
-  - grafana.tools.usercentrics-sandbox.eu
+  - grafana.tools.<YOUR_DOMAIN>-sandbox.eu
   gateways:
   - istio-gateway
   http:
@@ -40,7 +40,7 @@ spec:
 #  namespace: istio-system
 #spec:
 #  hosts:
-#  - prometheus.tools.usercentrics-sandbox.eu
+#  - prometheus.tools.<YOUR_DOMAIN>-sandbox.eu
 #  gateways:
 #  - istio-gateway
 #  http:
@@ -57,7 +57,7 @@ spec:
 #  namespace: istio-system
 #spec:
 #  hosts:
-#  - tracing.tools.usercentrics-sandbox.eu
+#  - tracing.tools.<YOUR_DOMAIN>-sandbox.eu
 #  gateways:
 #  - istio-gateway
 #  http:
