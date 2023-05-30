@@ -1,5 +1,5 @@
 project           = "staticfilesserver"
-cluster_name      = "usercentrics-production"
+cluster_name      = "<YOUR_DOMAIN>-production"
 region            = "europe-west1"
 regional          = true
 account_file_path = "~/.gcp/gcp-sa-prod.json"

@@ -6,7 +6,7 @@ metadata:
   annotations:
     kubernetes.io/ingress.global-static-ip-name: istio-gateway-static-uc
     networking.gke.io/v1beta1.FrontendConfig: istio-ingress-frontendconfig
-    ingress.gcp.kubernetes.io/pre-shared-cert: usercentrics-eu
+    ingress.gcp.kubernetes.io/pre-shared-cert: <YOUR_DOMAIN>-eu
 spec:
   backend:
     serviceName: istio-ingressgateway

@@ -11,18 +11,18 @@ The short version, however if you deploy the first time make sure you read the r
 ### Deploy Test/Development
 **NOTE: WE USE BITBUCKET PIPELINE NOW FOR DEPLOYMENT!!!**
 
-The important environment variables must be set manually in [deployment settings](https://bitbucket.org/usercentricscode/service-crawler/admin/addon/admin/pipelines/deployment-settings) in advance to make pipeline work:
+The important environment variables must be set manually in [deployment settings](https://bitbucket.org/<GROUP>/<REPO>/admin/addon/admin/pipelines/deployment-settings) in advance to make pipeline work:
 
-- `GCLOUD_API_KEY` (a base64 encoded content of the JSON api key file from the relevant Service account, e.g. _bitbucket-deploy@usercentrics-playground.iam.gserviceaccount.com_)
+- `GCLOUD_API_KEY` (a base64 encoded content of the JSON api key file from the relevant Service account, e.g. _bitbucket-deploy@<YOUR_DOMAIN>-playground.iam.gserviceaccount.com_)
 - `GCLOUD_PROJECT` (GCP project ID)
 - `SKAFFOLD_PROFILE` (profile = env. where the app will be deployed)
 - `GKE_CONNECTION` (a command to connect to the K8s cluster, which creates .kube/config file)
 
 ```
-gcloud container clusters get-credentials usercentrics-staging --region europe-west1-b --project usercentrics-playground 
+gcloud container clusters get-credentials <YOUR_DOMAIN>-staging --region europe-west1-b --project <YOUR_DOMAIN>-playground 
 ```
 
-Set the repository variable (kind of global variable available for each env.) [here](https://bitbucket.org/usercentricscode/service-crawler/admin/addon/admin/pipelines/repository-variables) 
+Set the repository variable (kind of global variable available for each env.) [here](https://bitbucket.org/<GROUP>/<REPO>/admin/addon/admin/pipelines/repository-variables) 
 - `SOPS_VERSION` (version of Mozilla SOPS to be used for the Helm secrets encryption)
 
 Service account roles to be set for the relative service account
@@ -35,13 +35,13 @@ Service account roles to be set for the relative service account
 in *EMERGENCY* case you could deploy from your local instance:
 
 ```
-gcloud container clusters get-credentials usercentrics-staging --region europe-west1-b --project usercentrics-playground            
-skaffold run --profile=dev --default-repo gcr.io/usercentrics-playground
+gcloud container clusters get-credentials <YOUR_DOMAIN>-staging --region europe-west1-b --project <YOUR_DOMAIN>-playground            
+skaffold run --profile=dev --default-repo gcr.io/<YOUR_DOMAIN>-playground
 ```
 
 ### Deploy Prod
 ```
-gcloud container clusters get-credentials usercentrics-prod  --region europe-west1
+gcloud container clusters get-credentials <YOUR_DOMAIN>-prod  --region europe-west1
 skaffold run --profile=prod --default-repo gcr.io/staticfilesserver     
 ```
 
@@ -209,10 +209,10 @@ Before continuing, ensure `kubectl` is pointing to the correct cluster. For this
 kubectl get nodes
 
 NAME                                                  STATUS   ROLES    AGE     VERSION
-gke-usercentrics-staging-compute-pool-1d31ab2b-5lf7   Ready    <none>   2d22h   v1.16.10-gke.8
-gke-usercentrics-staging-default-pool-387a6df0-5dml   Ready    <none>   9d      v1.16.10-gke.8
-gke-usercentrics-staging-default-pool-6777b300-g1tg   Ready    <none>   9d      v1.16.10-gke.8
-gke-usercentrics-staging-default-pool-a06420e2-z5gh   Ready    <none>   9d      v1.16.10-gke.8
+gke-<YOUR_DOMAIN>-staging-compute-pool-1d31ab2b-5lf7   Ready    <none>   2d22h   v1.16.10-gke.8
+gke-<YOUR_DOMAIN>-staging-default-pool-387a6df0-5dml   Ready    <none>   9d      v1.16.10-gke.8
+gke-<YOUR_DOMAIN>-staging-default-pool-6777b300-g1tg   Ready    <none>   9d      v1.16.10-gke.8
+gke-<YOUR_DOMAIN>-staging-default-pool-a06420e2-z5gh   Ready    <none>   9d      v1.16.10-gke.8
 ```
 
 When deploying to a remote cluster you have to point Skaffold to your default image repository in one of the four ways:

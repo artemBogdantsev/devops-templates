@@ -1,12 +1,12 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: services-usercentrics-cert
+  name: services-<YOUR_DOMAIN>-cert
   namespace: istio-system # alongside the ingress object
 spec:
-  secretName: services-usercentrics-tls
+  secretName: services-<YOUR_DOMAIN>-tls
   dnsNames:
-    - '*.services.usercentrics.eu'
+    - '*.services.<YOUR_DOMAIN>.eu'
   issuerRef:
     name: letsencrypt-issuer
     kind: ClusterIssuer
@@ -15,12 +15,12 @@ spec:
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: service-usercentrics-cert
+  name: service-<YOUR_DOMAIN>-cert
   namespace: istio-system # alongside the ingress object
 spec:
-  secretName: service-usercentrics-tls
+  secretName: service-<YOUR_DOMAIN>-tls
   dnsNames:
-  - '*.service.usercentrics.eu'
+  - '*.service.<YOUR_DOMAIN>.eu'
   issuerRef:
     name: letsencrypt-issuer
     kind: ClusterIssuer
@@ -29,12 +29,12 @@ spec:
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: tools-usercentrics-cert
+  name: tools-<YOUR_DOMAIN>-cert
   namespace: istio-system # alongside the ingress object
 spec:
-  secretName: tools-usercentrics-tls
+  secretName: tools-<YOUR_DOMAIN>-tls
   dnsNames:
-  - '*.tools.usercentrics.eu'
+  - '*.tools.<YOUR_DOMAIN>.eu'
   issuerRef:
     name: letsencrypt-issuer
     kind: ClusterIssuer

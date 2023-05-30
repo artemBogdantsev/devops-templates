@@ -97,14 +97,14 @@
             "metricKind": "DELTA",
             "metricType": "istio.io/service/server/response_latencies",
             "perSeriesAligner": "ALIGN_DELTA",
-            "projectName": "usercentrics-playground",
+            "projectName": "<YOUR_DOMAIN>-playground",
             "unit": "ms",
             "valueType": "DISTRIBUTION"
           },
           "metricType": "istio.io/service/server/response_latencies",
           "project": {
-            "id": "usercentrics-playground",
-            "name": "usercentrics-playground"
+            "id": "<YOUR_DOMAIN>-playground",
+            "name": "<YOUR_DOMAIN>-playground"
           },
           "queryType": "metrics",
           "refId": "A",
@@ -235,14 +235,14 @@
             "metricKind": "DELTA",
             "metricType": "istio.io/service/server/request_count",
             "perSeriesAligner": "ALIGN_DELTA",
-            "projectName": "usercentrics-playground",
+            "projectName": "<YOUR_DOMAIN>-playground",
             "unit": "1",
             "valueType": "INT64"
           },
           "metricType": "istio.io/service/server/request_count",
           "project": {
-            "id": "usercentrics-playground",
-            "name": "usercentrics-playground"
+            "id": "<YOUR_DOMAIN>-playground",
+            "name": "<YOUR_DOMAIN>-playground"
           },
           "queryType": "metrics",
           "refId": "A",
@@ -365,14 +365,14 @@
             "metricKind": "DELTA",
             "metricType": "istio.io/service/server/request_count",
             "perSeriesAligner": "ALIGN_DELTA",
-            "projectName": "usercentrics-playground",
+            "projectName": "<YOUR_DOMAIN>-playground",
             "unit": "1",
             "valueType": "INT64"
           },
           "metricType": "istio.io/service/server/request_count",
           "project": {
-            "id": "usercentrics-playground",
-            "name": "usercentrics-playground"
+            "id": "<YOUR_DOMAIN>-playground",
+            "name": "<YOUR_DOMAIN>-playground"
           },
           "queryType": "metrics",
           "refId": "A",
@@ -381,7 +381,7 @@
           "sloQuery": {
             "aliasBy": "",
             "alignmentPeriod": "stackdriver-auto",
-            "projectName": "usercentrics-playground",
+            "projectName": "<YOUR_DOMAIN>-playground",
             "selectorName": "select_slo_health",
             "serviceId": "",
             "sloId": ""

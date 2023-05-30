@@ -1,5 +1,5 @@
-project            = "usercentrics-staging"
-cluster_name       = "usercentrics-staging"
+project            = "<YOUR_DOMAIN>-staging"
+cluster_name       = "<YOUR_DOMAIN>-staging"
 region             = "europe-west1"
 regional           = true
 account_file_path  = "~/.gcp/gcp-sa-stage.json"

@@ -2,9 +2,9 @@
 - hosts: localhost
   gather_facts: no
   vars:
-      gcp_project: usercentrics-playground
+      gcp_project: <YOUR_DOMAIN>-playground
       gcp_cred_kind: serviceaccount
-      gcp_cred_file: ~/usercentrics-playground-2bbefbe57e2b.json
+      gcp_cred_file: ~/<YOUR_DOMAIN>-playground-2bbefbe57e2b.json
       gcp_zone: "europe-west1-c"
       gcp_region: "europe-west1"
       gcp_source_image: "projects/ubuntu-os-cloud/global/images/family/ubuntu-1604-lts"

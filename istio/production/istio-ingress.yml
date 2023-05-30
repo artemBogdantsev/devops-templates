@@ -10,15 +10,15 @@ metadata:
 spec:
   tls:
     # use an already existing certificate within the same namespace
-    - secretName: services-usercentrics-tls
+    - secretName: services-<YOUR_DOMAIN>-tls
       hosts:
-        - 'aggregator.services.usercentrics.eu'
-    - secretName: service-usercentrics-tls # is needed for prod migration
+        - 'aggregator.services.<YOUR_DOMAIN>.eu'
+    - secretName: service-<YOUR_DOMAIN>-tls # is needed for prod migration
       hosts:
-        - 'aggregator.service.usercentrics.eu'
-    - secretName: privacy-proxy-usercentrics-tls # is needed for prod migration
+        - 'aggregator.service.<YOUR_DOMAIN>.eu'
+    - secretName: privacy-proxy-<YOUR_DOMAIN>-tls # is needed for prod migration
       hosts:
-        - 'privacy-proxy-server.usercentrics.eu'
+        - 'privacy-proxy-server.<YOUR_DOMAIN>.eu'
   backend:
     serviceName: istio-ingressgateway
     servicePort: 80

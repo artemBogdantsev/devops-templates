@@ -43,7 +43,7 @@ This is different from the default Istio Service mesh model implementation, wher
 
 ## Objectives
 - Reserve static IP / Change to static by default created ephemeral IP for default LB
-- Create a DNS record for wildcard domain, e.g. "_*.services.usercentrics.eu_".
+- Create a DNS record for wildcard domain, e.g. "_*.services.<YOUR_DOMAIN>.eu_".
 - Update to Istio 1.6 with Istio Operator Installed.
 - Use Cert Manager to issue a certificate.
 - Create an Istio virtual service to handle health check requests.
@@ -83,7 +83,7 @@ metadata:
   name: istio-ingress-uc-eu
   namespace: istio-system
   annotations:
-    ingress.gcp.kubernetes.io/pre-shared-cert: usercentrics-eu
+    ingress.gcp.kubernetes.io/pre-shared-cert: <YOUR_DOMAIN>-eu
 ```
 
 *Self-managed certificates as Secret resources*

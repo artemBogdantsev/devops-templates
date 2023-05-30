@@ -172,9 +172,9 @@ metadata:
 spec:
   tls:
   # use an already existing certificate within the same namespace
-  - secretName: services-usercentrics-sandbox-tls
+  - secretName: services-<YOUR_DOMAIN>-sandbox-tls
     hosts:
-    - '*.services.usercentrics-sandbox.eu'
+    - '*.services.<YOUR_DOMAIN>-sandbox.eu'
   backend:
     serviceName: istio-ingressgateway
     servicePort: 80

@@ -7,7 +7,7 @@ spec:
     # The ACME server URL
     server: https://acme-v02.api.letsencrypt.org/directory
     # Email address used for ACME registration
-    email: ps@usercentrics.com
+    email: ps@<YOUR_DOMAIN>.com
     # Do not create a new ACME account, reuse existing one
     #disableAccountKeyGeneration: true
     # Name of a secret used to store the ACME account private key
@@ -22,4 +22,4 @@ spec:
           project: staticfilesserver
       selector:
         dnsZones:
-        - 'usercentrics.eu'
+        - '<YOUR_DOMAIN>.eu'

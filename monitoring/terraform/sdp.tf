@@ -2,7 +2,7 @@
 # 1. GKE - Privacy Proxy API
 data "google_monitoring_cluster_istio_service" "privacy-proxy-svc" {
   location = "europe-west3"
-  cluster_name = "usercentrics-production2"
+  cluster_name = "<YOUR_DOMAIN>-production2"
   service_namespace = "production"
   service_name = "privacy-proxy-svc"
 }
@@ -79,13 +79,13 @@ resource "google_monitoring_slo" "cs_lb_avail_slo_sdp" {
       total_service_filter = join(" AND ", [
         "metric.type=\"loadbalancing.googleapis.com/https/backend_request_count\"",
         "resource.type=\"https_lb_rule\"",
-        "resource.label.url_map_name=\"app-usercentrics-eu\"",
+        "resource.label.url_map_name=\"app-<YOUR_DOMAIN>-eu\"",
         "resource.label.backend_target_name=\"app-hitmanjs\""
       ])
       good_service_filter = join(" AND ", [
         "metric.type=\"loadbalancing.googleapis.com/https/backend_request_count\"",
         "resource.type=\"https_lb_rule\"",
-        "resource.label.url_map_name=\"app-usercentrics-eu\"",
+        "resource.label.url_map_name=\"app-<YOUR_DOMAIN>-eu\"",
         "resource.label.backend_target_name=\"app-hitmanjs\"",
         "metric.label.response_code_class<399"
       ])
@@ -107,7 +107,7 @@ resource "google_monitoring_slo" "cs_lb_lat_slo_sdp" {
       distribution_filter = join(" AND ", [
         "metric.type=\"loadbalancing.googleapis.com/https/backend_latencies\"",
         "resource.type=\"https_lb_rule\"",
-        "resource.label.url_map_name=\"app-usercentrics-eu\"",
+        "resource.label.url_map_name=\"app-<YOUR_DOMAIN>-eu\"",
         "resource.label.backend_target_name=\"app-hitmanjs\""
       ])
 
@@ -154,7 +154,7 @@ resource "google_monitoring_slo" "cs_be_avail_slo_sdp" {
 # 3. GKE - Crawler
 data "google_monitoring_cluster_istio_service" "service-crawler-svc" {
   location = "europe-west3"
-  cluster_name = "usercentrics-production2"
+  cluster_name = "<YOUR_DOMAIN>-production2"
   service_namespace = "production"
   service_name = "service-crawler-svc"
 }

@@ -1,5 +1,5 @@
-project           = "usercentrics-playground"
-cluster_name      = "usercentrics-development"
+project           = "<YOUR_DOMAIN>-playground"
+cluster_name      = "<YOUR_DOMAIN>-development"
 region            = "europe-west1"
 regional          = false
 zones             = ["europe-west1-b", "europe-west1-c", "europe-west1-d"]

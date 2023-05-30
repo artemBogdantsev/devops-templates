@@ -76,13 +76,13 @@ resource "google_monitoring_slo" "cs_lb_avail_slo_duda" {
       total_service_filter = join(" AND ", [
         "metric.type=\"loadbalancing.googleapis.com/https/backend_request_count\"",
         "resource.type=\"https_lb_rule\"",
-        "resource.label.url_map_name=\"duda-usercentrics-eu\"",
+        "resource.label.url_map_name=\"duda-<YOUR_DOMAIN>-eu\"",
         "resource.label.backend_target_name=\"app-duda-fe\""
       ])
       good_service_filter = join(" AND ", [
         "metric.type=\"loadbalancing.googleapis.com/https/backend_request_count\"",
         "resource.type=\"https_lb_rule\"",
-        "resource.label.url_map_name=\"duda-usercentrics-eu\"",
+        "resource.label.url_map_name=\"duda-<YOUR_DOMAIN>-eu\"",
         "resource.label.backend_target_name=\"app-duda-fe\"",
         "metric.label.response_code_class<399"
       ])
@@ -104,7 +104,7 @@ resource "google_monitoring_slo" "cs_lb_lat_slo_duda" {
       distribution_filter = join(" AND ", [
         "metric.type=\"loadbalancing.googleapis.com/https/backend_latencies\"",
         "resource.type=\"https_lb_rule\"",
-        "resource.label.url_map_name=\"duda-usercentrics-eu\"",
+        "resource.label.url_map_name=\"duda-<YOUR_DOMAIN>-eu\"",
         "resource.label.backend_target_name=\"app-duda-fe\""
       ])
 

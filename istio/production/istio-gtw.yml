@@ -12,9 +12,9 @@ spec:
       name: http-redirect
       protocol: HTTP
     hosts:
-    - "crawler.services.usercentrics.eu"
-    - "crawler.service.usercentrics.eu"
-    - "*.tools.usercentrics.eu"
+    - "crawler.services.<YOUR_DOMAIN>.eu"
+    - "crawler.service.<YOUR_DOMAIN>.eu"
+    - "*.tools.<YOUR_DOMAIN>.eu"
     tls:
       httpsRedirect: true # sends 301 redirect for http requests
   - port:
@@ -22,10 +22,10 @@ spec:
       name: https-services
       protocol: HTTPS
     hosts:
-    - "*.services.usercentrics.eu"
+    - "*.services.<YOUR_DOMAIN>.eu"
     tls:
       mode: SIMPLE # enables HTTPS on this port
-      credentialName: services-usercentrics-tls
+      credentialName: services-<YOUR_DOMAIN>-tls
       minProtocolVersion: TLSV1_2
       cipherSuites: [
         TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,
@@ -40,10 +40,10 @@ spec:
       name: https-service
       protocol: HTTPS
     hosts:
-    - "*.service.usercentrics.eu"
+    - "*.service.<YOUR_DOMAIN>.eu"
     tls:
       mode: SIMPLE # enables HTTPS on this port
-      credentialName: service-usercentrics-tls
+      credentialName: service-<YOUR_DOMAIN>-tls
       minProtocolVersion: TLSV1_2
       cipherSuites: [
         TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,
@@ -58,10 +58,10 @@ spec:
       name: https-tools
       protocol: HTTPS
     hosts:
-    - "*.tools.usercentrics.eu"
+    - "*.tools.<YOUR_DOMAIN>.eu"
     tls:
       mode: SIMPLE # enables HTTPS on this port
-      credentialName: tools-usercentrics-tls
+      credentialName: tools-<YOUR_DOMAIN>-tls
       minProtocolVersion: TLSV1_2
       cipherSuites: [
         TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,

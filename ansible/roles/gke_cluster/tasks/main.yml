@@ -1,7 +1,7 @@
 ---
 - name: create a cluster
   gcp_container_cluster:
-    name: usercentrics-cluster
+    name: <YOUR_DOMAIN>-cluster
     initial_node_count: 1
     node_config:
       machine_type: "{{ gcp_machine_type }}"

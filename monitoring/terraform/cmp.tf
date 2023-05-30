@@ -131,13 +131,13 @@ resource "google_monitoring_slo" "cs_lb_avail_slo" {
       total_service_filter = join(" AND ", [
         "metric.type=\"loadbalancing.googleapis.com/https/backend_request_count\"",
         "resource.type=\"https_lb_rule\"",
-        "resource.label.url_map_name=\"app-usercentrics-eu\"",
+        "resource.label.url_map_name=\"app-<YOUR_DOMAIN>-eu\"",
         "resource.label.backend_target_name=\"app-browser-ui\""
       ])
       good_service_filter = join(" AND ", [
         "metric.type=\"loadbalancing.googleapis.com/https/backend_request_count\"",
         "resource.type=\"https_lb_rule\"",
-        "resource.label.url_map_name=\"app-usercentrics-eu\"",
+        "resource.label.url_map_name=\"app-<YOUR_DOMAIN>-eu\"",
         "resource.label.backend_target_name=\"app-browser-ui\"",
         "metric.label.response_code_class<399"
       ])
@@ -159,7 +159,7 @@ resource "google_monitoring_slo" "cs_lb_lat_slo" {
       distribution_filter = join(" AND ", [
         "metric.type=\"loadbalancing.googleapis.com/https/backend_latencies\"",
         "resource.type=\"https_lb_rule\"",
-        "resource.label.url_map_name=\"app-usercentrics-eu\"",
+        "resource.label.url_map_name=\"app-<YOUR_DOMAIN>-eu\"",
         "resource.label.backend_target_name=\"app-browser-ui\""
       ])
 
@@ -221,13 +221,13 @@ resource "google_monitoring_slo" "cs_2_lb_avail_slo" {
       total_service_filter = join(" AND ", [
         "metric.type=\"loadbalancing.googleapis.com/https/backend_request_count\"",
         "resource.type=\"https_lb_rule\"",
-        "resource.label.url_map_name=\"static-assets-usercentrics\"",
+        "resource.label.url_map_name=\"static-assets-<YOUR_DOMAIN>\"",
         "resource.label.backend_target_name=\"staticfiles\""
       ])
       good_service_filter = join(" AND ", [
         "metric.type=\"loadbalancing.googleapis.com/https/backend_request_count\"",
         "resource.type=\"https_lb_rule\"",
-        "resource.label.url_map_name=\"static-assets-usercentrics\"",
+        "resource.label.url_map_name=\"static-assets-<YOUR_DOMAIN>\"",
         "resource.label.backend_target_name=\"staticfiles\"",
         "metric.label.response_code_class<399"
       ])
@@ -249,7 +249,7 @@ resource "google_monitoring_slo" "cs_2_lb_lat_slo" {
       distribution_filter = join(" AND ", [
         "metric.type=\"loadbalancing.googleapis.com/https/backend_latencies\"",
         "resource.type=\"https_lb_rule\"",
-        "resource.label.url_map_name=\"static-assets-usercentrics\"",
+        "resource.label.url_map_name=\"static-assets-<YOUR_DOMAIN>\"",
         "resource.label.backend_target_name=\"staticfiles\""
       ])
 

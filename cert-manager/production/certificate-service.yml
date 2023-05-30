@@ -1,12 +1,12 @@
 apiVersion: cert-manager.io/v1beta1
 kind: Certificate
 metadata:
-  name: service-usercentrics-cert
+  name: service-<YOUR_DOMAIN>-cert
   namespace: istio-system # alongside the ingress object
 spec:
-  secretName: service-usercentrics-tls
+  secretName: service-<YOUR_DOMAIN>-tls
   dnsNames:
-  - '*.service.usercentrics.eu'
+  - '*.service.<YOUR_DOMAIN>.eu'
   issuerRef:
     name: letsencrypt-issuer
     kind: ClusterIssuer

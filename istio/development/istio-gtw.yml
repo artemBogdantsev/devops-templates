@@ -12,9 +12,9 @@ spec:
       name: http-redirect
       protocol: HTTP
     hosts:
-    - "*.tools.usercentrics-sandbox.eu"
-    - "crawler.services.usercentrics-sandbox.eu"
-    - "crawler.service.usercentrics-sandbox.eu"
+    - "*.tools.<YOUR_DOMAIN>-sandbox.eu"
+    - "crawler.services.<YOUR_DOMAIN>-sandbox.eu"
+    - "crawler.service.<YOUR_DOMAIN>-sandbox.eu"
     tls:
       httpsRedirect: true # sends 301 redirect for http requests
   - port:
@@ -22,10 +22,10 @@ spec:
       name: https-tools
       protocol: HTTPS
     hosts:
-    - "*.tools.usercentrics-sandbox.eu"
+    - "*.tools.<YOUR_DOMAIN>-sandbox.eu"
     tls:
       mode: SIMPLE # enables HTTPS on this port
-      credentialName: tools-usercentrics-sandbox-tls
+      credentialName: tools-<YOUR_DOMAIN>-sandbox-tls
       minProtocolVersion: TLSV1_2
       cipherSuites: [
         TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,
@@ -40,10 +40,10 @@ spec:
       name: https-services
       protocol: HTTPS
     hosts:
-    - "*.services.usercentrics-sandbox.eu"
+    - "*.services.<YOUR_DOMAIN>-sandbox.eu"
     tls:
       mode: SIMPLE # enables HTTPS on this port
-      credentialName: services-usercentrics-sandbox-tls
+      credentialName: services-<YOUR_DOMAIN>-sandbox-tls
       minProtocolVersion: TLSV1_2
       cipherSuites: [
         TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,
@@ -58,10 +58,10 @@ spec:
       name: https-privacy-proxy
       protocol: HTTPS
     hosts:
-    - "privacy-proxy-server.usercentrics-sandbox.eu"
+    - "privacy-proxy-server.<YOUR_DOMAIN>-sandbox.eu"
     tls:
       mode: SIMPLE # enables HTTPS on this port
-      credentialName: privacy-proxy-usercentrics-sandbox-tls
+      credentialName: privacy-proxy-<YOUR_DOMAIN>-sandbox-tls
       minProtocolVersion: TLSV1_2
       cipherSuites: [
         TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,
@@ -76,10 +76,10 @@ spec:
       name: https-service
       protocol: HTTPS
     hosts:
-    - "*.service.usercentrics-sandbox.eu"
+    - "*.service.<YOUR_DOMAIN>-sandbox.eu"
     tls:
       mode: SIMPLE # enables HTTPS on this port
-      credentialName: service-usercentrics-sandbox-tls
+      credentialName: service-<YOUR_DOMAIN>-sandbox-tls
       minProtocolVersion: TLSV1_2
       cipherSuites: [
         TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,

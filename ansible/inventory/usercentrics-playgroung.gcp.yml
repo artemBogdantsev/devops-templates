@@ -1,10 +1,10 @@
 # this is the staaging eviroinment dynamic inventory file
 plugin: gcp_compute
 projects:
-  - usercentrics-playground
+  - <YOUR_DOMAIN>-playground
 keyed_groups:
   - key: zone
 hostnames:
   - name
 auth_kind: serviceaccount
-service_account_file: ~/usercentrics-playground-2bbefbe57e2b.json
+service_account_file: ~/<YOUR_DOMAIN>-playground-2bbefbe57e2b.json

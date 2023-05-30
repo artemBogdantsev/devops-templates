@@ -131,13 +131,13 @@ resource "google_monitoring_slo" "cs_lb_avail_slo_internal" {
       total_service_filter = join(" AND ", [
         "metric.type=\"loadbalancing.googleapis.com/https/backend_request_count\"",
         "resource.type=\"https_lb_rule\"",
-        "resource.label.url_map_name=\"app-usercentrics-eu\"",
+        "resource.label.url_map_name=\"app-<YOUR_DOMAIN>-eu\"",
         "resource.label.backend_target_name=\"app-admin-interface-production\""
       ])
       good_service_filter = join(" AND ", [
         "metric.type=\"loadbalancing.googleapis.com/https/backend_request_count\"",
         "resource.type=\"https_lb_rule\"",
-        "resource.label.url_map_name=\"app-usercentrics-eu\"",
+        "resource.label.url_map_name=\"app-<YOUR_DOMAIN>-eu\"",
         "resource.label.backend_target_name=\"app-admin-interface-production\"",
         "metric.label.response_code_class<399"
       ])
@@ -159,7 +159,7 @@ resource "google_monitoring_slo" "cs_lb_lat_slo_internal" {
       distribution_filter = join(" AND ", [
         "metric.type=\"loadbalancing.googleapis.com/https/backend_latencies\"",
         "resource.type=\"https_lb_rule\"",
-        "resource.label.url_map_name=\"app-usercentrics-eu\"",
+        "resource.label.url_map_name=\"app-<YOUR_DOMAIN>-eu\"",
         "resource.label.backend_target_name=\"app-admin-interface-production\""
       ])
 
@@ -221,13 +221,13 @@ resource "google_monitoring_slo" "cs_2_lb_avail_slo_internal" {
       total_service_filter = join(" AND ", [
         "metric.type=\"loadbalancing.googleapis.com/https/backend_request_count\"",
         "resource.type=\"https_lb_rule\"",
-        "resource.label.url_map_name=\"account-usercentrics-eu\"",
+        "resource.label.url_map_name=\"account-<YOUR_DOMAIN>-eu\"",
         "resource.label.backend_target_name=\"app-permission-manager\""
       ])
       good_service_filter = join(" AND ", [
         "metric.type=\"loadbalancing.googleapis.com/https/backend_request_count\"",
         "resource.type=\"https_lb_rule\"",
-        "resource.label.url_map_name=\"account-usercentrics-eu\"",
+        "resource.label.url_map_name=\"account-<YOUR_DOMAIN>-eu\"",
         "resource.label.backend_target_name=\"app-permission-manager\"",
         "metric.label.response_code_class<399"
       ])
@@ -249,7 +249,7 @@ resource "google_monitoring_slo" "cs_2_lb_lat_slo_internal" {
       distribution_filter = join(" AND ", [
         "metric.type=\"loadbalancing.googleapis.com/https/backend_latencies\"",
         "resource.type=\"https_lb_rule\"",
-        "resource.label.url_map_name=\"account-usercentrics-eu\"",
+        "resource.label.url_map_name=\"account-<YOUR_DOMAIN>-eu\"",
         "resource.label.backend_target_name=\"app-permission-manager\""
       ])
 

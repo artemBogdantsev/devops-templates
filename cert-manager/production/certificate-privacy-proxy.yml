@@ -1,12 +1,12 @@
 apiVersion: cert-manager.io/v1beta1
 kind: Certificate
 metadata:
-  name: privacy-proxy-usercentrics-cert
+  name: privacy-proxy-<YOUR_DOMAIN>-cert
   namespace: istio-system # alongside the ingress object
 spec:
-  secretName: privacy-proxy-usercentrics-tls
+  secretName: privacy-proxy-<YOUR_DOMAIN>-tls
   dnsNames:
-  - 'privacy-proxy-server.usercentrics.eu'
+  - 'privacy-proxy-server.<YOUR_DOMAIN>.eu'
   issuerRef:
     name: letsencrypt-issuer
     kind: ClusterIssuer
