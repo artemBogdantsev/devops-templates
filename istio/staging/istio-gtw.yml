@@ -12,9 +12,9 @@ spec:
       name: http-redirect
       protocol: HTTP
     hosts:
-    - "privacy-proxy-server.usercentrics-staging.eu"
-    - "*.services.usercentrics-staging.eu"
-    - "*.service.usercentrics-staging.eu"
+    - "privacy-proxy-server.<YOUR_DOMAIN>-staging.eu"
+    - "*.services.<YOUR_DOMAIN>-staging.eu"
+    - "*.service.<YOUR_DOMAIN>-staging.eu"
     tls:
       httpsRedirect: true # sends 301 redirect for http requests
 
@@ -23,10 +23,10 @@ spec:
       name: https-services
       protocol: HTTPS
     hosts:
-    - "*.services.usercentrics-staging.eu"
+    - "*.services.<YOUR_DOMAIN>-staging.eu"
     tls:
       mode: SIMPLE # enables HTTPS on this port
-      credentialName: services-usercentrics-staging-tls
+      credentialName: services-<YOUR_DOMAIN>-staging-tls
       minProtocolVersion: TLSV1_2
       cipherSuites: [
         TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,
@@ -41,10 +41,10 @@ spec:
       name: https-privacy-proxy
       protocol: HTTPS
     hosts:
-    - "privacy-proxy-server.usercentrics-staging.eu"
+    - "privacy-proxy-server.<YOUR_DOMAIN>-staging.eu"
     tls:
       mode: SIMPLE # enables HTTPS on this port
-      credentialName: privacy-proxy-usercentrics-staging-tls
+      credentialName: privacy-proxy-<YOUR_DOMAIN>-staging-tls
       minProtocolVersion: TLSV1_2
       cipherSuites: [
         TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,
@@ -59,10 +59,10 @@ spec:
       name: https-service
       protocol: HTTPS
     hosts:
-    - "*.service.usercentrics-staging.eu"
+    - "*.service.<YOUR_DOMAIN>-staging.eu"
     tls:
       mode: SIMPLE # enables HTTPS on this port
-      credentialName: service-usercentrics-staging-tls
+      credentialName: service-<YOUR_DOMAIN>-staging-tls
       minProtocolVersion: TLSV1_2
       cipherSuites: [
         TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,
