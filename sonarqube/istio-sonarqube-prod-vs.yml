@@ -6,7 +6,7 @@ metadata:
   namespace: toolchain
 spec:
   hosts:
-  - sonarserver.tools.usercentrics.eu
+  - sonarserver.tools.<YOUR_DOMAIN>.eu
   gateways:
   - istio-system/istio-gateway
   http:
