@@ -6,7 +6,7 @@ metadata:
   namespace: istio-system
 spec:
   hosts:
-  - kiali.tools.usercentrics.eu
+  - kiali.tools.<YOUR_DOMAIN>.eu
   gateways:
   - istio-gateway
   http:
@@ -23,7 +23,7 @@ metadata:
   namespace: istio-system
 spec:
   hosts:
-  - grafana.tools.usercentrics.eu
+  - grafana.tools.<YOUR_DOMAIN>.eu
   gateways:
   - istio-gateway
   http:
