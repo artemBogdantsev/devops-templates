@@ -44,8 +44,8 @@ spec:
         GF_AUTH_GOOGLE_CLIENT_ID: my_client
         GF_AUTH_GOOGLE_CLIENT_SECRET: my_secret
         GF_AUTH_GOOGLE_ENABLED: true
-        GF_AUTH_GOOGLE_ALLOWED_DOMAINS: usercentrics.com
-        GF_SERVER_ROOT_URL: https://grafana.tools.usercentrics-sandbox.eu/
+        GF_AUTH_GOOGLE_ALLOWED_DOMAINS: <YOUR_DOMAIN>.com
+        GF_SERVER_ROOT_URL: https://grafana.tools.<YOUR_DOMAIN>-sandbox.eu/
     mixer:
       adapters:
         prometheus:
