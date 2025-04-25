@@ -1,0 +1,25 @@
+# Top Level vars to be injected into template defaults
+default:
+  image:
+    name: mtr.devops.telekom.de/ode/dev-tools:2.1.0-docker
+
+variables:
+  WIF_SVC_NAME: $ODE_SOV_IL_WIF
+  CLUSTER_NAME: ode-sov-ingest-tier-gke-0
+  DEFAULT_TF_VAR_FILES: tfvars/globals.auto.tfvars.json tfvars/il.auto.tfvars.json
+  # Docker/Helm Mirroring
+  IMAGE_ORIG: quay.io/jetstack/cert-manager-controller:v1.17.1
+  HELM_ORIG_REPO: jetstack
+  HELM_ORIG_REPO_URL: https://charts.jetstack.io
+  HELM_ORIG_CHART: cert-manager
+  IMAGES: >
+    quay.io/jetstack/cert-manager-webhook:v1.17.1
+    quay.io/jetstack/cert-manager-cainjector:v1.17.1
+    quay.io/jetstack/cert-manager-acmesolver:v1.17.1
+    quay.io/jetstack/cert-manager-startupapicheck:v1.17.1
+
+include:
+  - project: $ODE_TEMPLATES_PROJECT
+    ref: $ODE_TEMPLATES_BRANCH
+    file:
+      - 'SovCloud/iac/main.yml'
